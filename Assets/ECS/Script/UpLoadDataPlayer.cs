@@ -18,7 +18,16 @@ public class UpLoadDataPlayer : MonoBehaviour
     [SerializeField] private HealtComponent healtComponent;
     private string hashKey = "DataPlayer";
     //
-
+    //
+    private DataPlayer dataPlayerFireBase;
+    private DataPlayer dataPlayerLocal;
+    private DataPlayer dataPlayerDefault;
+    //Load settings
+    public SettingsLoadData SettingsLoadData;
+    //temp public
+    public bool isFireBase = false;
+    public bool isLocalBase = false;
+    public bool isDefault = false;
     //Zenject
     private IData dataConfig;
 
@@ -32,6 +41,9 @@ public class UpLoadDataPlayer : MonoBehaviour
     private void Awake()
     {
         StartCoroutine(Example());
+        isFireBase = SettingsLoadData.isFireBase;
+        isLocalBase = SettingsLoadData.isLocalBase;
+        isDefault = SettingsLoadData.isDefault;
     }
 
     private IEnumerator Example()
@@ -78,15 +90,11 @@ public class UpLoadDataPlayer : MonoBehaviour
     ////Async/await
     private async void LoadData()
     {
-        //
-        DataPlayer dataPlayerFireBase;
-        DataPlayer dataPlayerLocal;
-        DataPlayer dataPlayerDefault;
 
-        bool isFireBase = await Task.FromResult(dataConfig.LoadDataFireBase(FireBaseTool.Snapshot, out dataPlayerFireBase));//загрузим FireBase
+        /*bool isFireBase =*/ await Task.FromResult(dataConfig.LoadDataFireBase(FireBaseTool.Snapshot, out dataPlayerFireBase));//загрузим FireBase
         loadFireBaseData.text = $"healtPlayer={dataPlayerFireBase.healtPlayer} shootCount={dataPlayerFireBase.shootCount}";
 
-        bool isLocalBase = await Task.FromResult(dataConfig.LoadDataLocalBase(hashKey, out dataPlayerLocal));//загрузим LocalBase
+        /*bool isLocalBase =*/ await Task.FromResult(dataConfig.LoadDataLocalBase(hashKey, out dataPlayerLocal));//загрузим LocalBase
         loadLocalData.text = $"healtPlayer={dataPlayerLocal.healtPlayer} shootCount={dataPlayerLocal.shootCount}";
 
         dataConfig.LoadDataDefault(out dataPlayerDefault);
@@ -99,7 +107,7 @@ public class UpLoadDataPlayer : MonoBehaviour
         {
             GetData(dataPlayerLocal);
         }
-        else//выберем источник загрузки
+        else if (isDefault)//выберем источник загрузки
         {
             GetData(dataPlayerDefault);
         }
@@ -112,6 +120,22 @@ public class UpLoadDataPlayer : MonoBehaviour
         Statistic.ShootCount = dataPlayer.shootCount;//обращаемся к статичному классу
     }
 
+    //для DZ11 меню
+    public void GetDataMenu()
+    {
+        if (isFireBase)//выберем источник загрузки
+        {
+            GetData(dataPlayerFireBase);
+        }
+        else if (isLocalBase)//выберем источник загрузки
+        {
+            GetData(dataPlayerLocal);
+        }
+        else if (isDefault)//выберем источник загрузки
+        {
+            GetData(dataPlayerDefault);
+        }
+    }
     void OnApplicationQuit()
     {
         SaveData();

@@ -14396,6 +14396,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 335288798}
     - target: {fileID: 7747296799521460363, guid: 1b18c0642409fb8429197c138a29045f, type: 3}
+      propertyPath: SettingsLoadData
+      value: 
+      objectReference: {fileID: 11400000, guid: 4e3851c53b2f2034ebde4eb845abc2b0, type: 2}
+    - target: {fileID: 7747296799521460363, guid: 1b18c0642409fb8429197c138a29045f, type: 3}
       propertyPath: loadFireBaseData
       value: 
       objectReference: {fileID: 1864743437}
