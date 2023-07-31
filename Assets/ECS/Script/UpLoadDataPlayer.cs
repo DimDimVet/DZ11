@@ -2,8 +2,6 @@ using Firebase.Database;
 using System;
 using System.Collections;
 using System.Threading.Tasks;
-using Unity.Collections;
-using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;

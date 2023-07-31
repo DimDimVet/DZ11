@@ -1,13 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
 
-//[CustomEditor(typeof(Statistic))]
 public class ConfigEditor : EditorWindow
 {
-    //private string settings = "t:SettingsLoadData";
     private SettingsLoadData settingsFile;
     public bool isFireBase = true;
     public bool isLocalBase = false;
@@ -24,24 +20,6 @@ public class ConfigEditor : EditorWindow
         EditorWindow.GetWindow(typeof(ConfigEditor));//GetWindow формирует окно 
     }
 
-    private void GUIToggleControl()
-    {
-        if (isFireBase)
-        {
-            isLocalBase = false;
-            isDefault = false;
-        }
-        else if (isLocalBase)
-        {
-            isFireBase = false;
-            isDefault = false;
-        }
-        else if (isDefault)
-        {
-            isFireBase = false;
-            isLocalBase = false;
-        }
-    }
     private void GUIStart(string[] settingsList)
     {
         GUILayout.Space(10);//пропуск пробел в пикселях
@@ -96,8 +74,6 @@ public class ConfigEditor : EditorWindow
     }
     void OnGUI()
     {
-        GUIToggleControl();//контролим состояние включения toggle
-
         settingsList = AssetDatabase.FindAssets("t:settingsLoadData");//поищем объекты с файлами settings
         GUIStart(settingsList);//сформируем элементы окна
         ButtonCurrentMode(settingsList);//логика кнопки по опросу сеттинга
