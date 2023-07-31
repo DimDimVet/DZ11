@@ -38,6 +38,14 @@ public class ShootComponent : MonoBehaviour, IShootComponent
     {
         text.text = $"Bullet = {Statistic.ShootCount}";
     }
+    private void Update()//проверяем состояние данных в статистике по DZ11
+    {
+        if (Statistic.isUpData)
+        {
+            DataStart();
+            Statistic.isUpData = false;
+        }
+    }
 
     public void Shoot()
     {

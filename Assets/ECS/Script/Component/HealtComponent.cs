@@ -36,6 +36,11 @@ public class HealtComponent : MonoBehaviour
         text.text = $"Healt = {Healt}";
     }
 
+    public void UpData()//для DZ11 обновить данные при изменение источника загрузки
+    {
+        DataStart();
+    }
+
     public void HealtContoll(int damage)
     {
         Healt -= damage;

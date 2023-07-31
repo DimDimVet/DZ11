@@ -4,4 +4,5 @@ using System;
 public static class Statistic//создадим класс хранилище изменяемых данных
 {
     public static  int ShootCount;
+    public static bool isUpData=false;
 }
